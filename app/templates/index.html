@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="controls">
+  <div class="control-group">
+    <label>Scan Width (m)
+      <input type="number" id="width_m" step="0.1" value="{{ defaults.width_m }}">
+    </label>
+    <label>Max Depth (m)
+      <input type="number" id="max_depth_m" step="0.1" value="{{ defaults.max_depth_m }}">
+    </label>
+    <label>Traces
+      <input type="number" id="traces" step="1" value="{{ defaults.traces }}">
+    </label>
+    <label>Samples
+      <input type="number" id="samples" step="1" value="{{ defaults.samples }}">
+    </label>
+    <label>Relative Permittivity εr
+      <input type="number" id="epsilon_r" step="0.1" value="{{ defaults.epsilon_r }}">
+    </label>
+    <label>Wavelength (m)
+      <input type="number" id="wavelength_m" step="0.01" value="{{ defaults.wavelength_m }}">
+    </label>
+  </div>
+  <div class="control-group">
+    <span id="width_m_help" class="hint">What is width?</span>
+    <span id="max_depth_m_help" class="hint">What is depth?</span>
+    <span id="traces_help" class="hint">What are traces?</span>
+    <span id="samples_help" class="hint">What are samples?</span>
+    <span id="epsilon_r_help" class="hint">What is εr?</span>
+    <span id="wavelength_m_help" class="hint">What is wavelength?</span>
+  </div>
+  <div class="control-group">
+    <button id="addObj">Add Object</button>
+    <button id="clearObj">Clear Objects</button>
+    <button id="runSim">Run Simulation</button>
+  </div>
+</section>
+
+<section class="stage">
+  <div class="pane">
+    <h3>Place Objects (up to 3)</h3>
+    <canvas id="placement" width="500" height="300"></canvas>
+    <p class="hint">Click to add/move objects. Top is ground surface; down is deeper.</p>
+    <div class="control-group">
+      <span id="sel_info" class="hint">No object selected</span>
+      <label>Shape
+        <select id="obj_shape">
+          <option value="point">Point</option>
+          <option value="square">Square</option>
+        </select>
+      </label>
+      <label>Size (m)
+        <input type="number" id="obj_size" step="0.05" min="0" value="0">
+      </label>
+    </div>
+  </div>
+  <div class="pane">
+    <h3>Simulated B-Scan</h3>
+    <canvas id="bscan" width="500" height="300"></canvas>
+  </div>
+</section>
+
+<section class="explain">
+  <h3>How depth is calculated</h3>
+  <p>
+    GPR sends a pulse and measures how long it takes to reflect back. The wave speed in the ground is
+    v = c / √εr, where c ≈ 0.3 m/ns. For a point target located at horizontal position x₀ and depth z₀,
+    the recorded shape in a B-scan (depth vs. distance) is a hyperbola:
+    z(x) = √((x − x₀)² + z₀²).
+  </p>
+  <p>
+    At the apex (the top of the hyperbola) x = x₀, so z = z₀ — that equals the object depth. If you know v, you can
+    also convert depth to two-way travel time: T = 2z / v.
+  </p>
+  <p class="hint">Tip: Click near an apex point in the B-scan to see the numeric calculation using your current εr.</p>
+  <p class="hint">Tip: adjust εr to see how velocity changes (v = c/√εr) and how that maps depth to time.</p>
+  
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/app.js"></script>
+{% endblock %}

@@ -1,0 +1,28 @@
+:root{ --bg:#0b0f14; --fg:#e8f0fe; --accent:#4cc9f0; --muted:#94a3b8; --panel:#111827; }
+*{ box-sizing:border-box; }
+body{ margin:0; font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif; background:var(--bg); color:var(--fg); }
+.site-header,.site-footer{ padding:10px 16px; background:var(--panel); }
+.container{ padding:16px; }
+.controls{ background:var(--panel); padding:12px; border-radius:8px; margin-bottom:16px; }
+.control-group{ display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin-bottom:8px; }
+label{ font-size:14px; color:var(--muted); display:flex; flex-direction:column; gap:4px; }
+input{ padding:6px 8px; border-radius:6px; border:1px solid #1f2937; background:#0f172a; color:var(--fg); width:120px; }
+button{ padding:8px 12px; border-radius:6px; border:1px solid #1f2937; background:#172554; color:var(--fg); cursor:pointer; }
+button:hover{ background:#1e3a8a; }
+.stage{ display:flex; gap:16px; }
+.pane{ flex:1; background:var(--panel); padding:12px; border-radius:8px; }
+canvas{ background:#0a0a0a; border-radius:6px; border:1px solid #1f2937; display:block; }
+.hint{ color:var(--muted); font-size:12px; }
+.explain{ margin-top:16px; background:var(--panel); padding:12px; border-radius:8px; }
+
+/* help modal */
+#helpModal{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,0.5); z-index:1000; }
+#helpModal.show{ display:flex; }
+#helpModal .modal{ background:#0b1220; color:#e5e7eb; padding:16px; border:1px solid #1f2937; border-radius:8px; width:min(460px, 90vw); }
+#helpModal h3{ margin:0 0 8px 0; }
+#helpModal button{ margin-top:12px; }
+
+/* apex tip */
+#apexTip{ position:fixed; display:none; z-index:1000; }
+#apexTip.show{ display:block; }
+#apexTip .panel{ background:#0b1220; color:#e5e7eb; padding:8px 10px; border:1px solid #1f2937; border-radius:6px; font-size:12px; }
