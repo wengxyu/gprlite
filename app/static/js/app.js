@@ -189,6 +189,10 @@
 
   // --- Parameter help popups ---
   const helps = {
+    bscan: {
+      title: 'What is a B-scan?',
+      text: 'A B-scan is a 2D slice composed of many adjacent A-scans (one per antenna position). The horizontal axis is antenna position (distance or trace index), and the vertical axis is depth (or two-way travel time). Point-like targets produce hyperbolas because the antenna moves laterally while the travel path length changes; the apex aligns with the target position and depth. B-scans are the common way to visualize GPR surveys along a line.'
+    },
     width_m: {
       title: 'Scan Width',
       text: 'The horizontal distance covered by the scan. Wider scans include more positions (X), so you see more of each hyperbola.'
@@ -237,7 +241,7 @@
       helpModal.classList.add('show');
     });
   }
-  ['width_m_help','max_depth_m_help','traces_help','samples_help','epsilon_r_help','wavelength_m_help'].forEach(attachHelp);
+  ['bscan_help','width_m_help','max_depth_m_help','traces_help','samples_help','epsilon_r_help','wavelength_m_help'].forEach(attachHelp);
 
   // --- Object controls (shape/size) ---
   const shapeSel = document.getElementById('obj_shape');

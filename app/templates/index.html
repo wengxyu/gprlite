@@ -22,17 +22,17 @@
     </label>
   </div>
   <div class="control-group">
-    <span id="width_m_help" class="hint">What is width?</span>
-    <span id="max_depth_m_help" class="hint">What is depth?</span>
-    <span id="traces_help" class="hint">What are traces?</span>
-    <span id="samples_help" class="hint">What are samples?</span>
-    <span id="epsilon_r_help" class="hint">What is εr?</span>
-    <span id="wavelength_m_help" class="hint">What is wavelength?</span>
+    <span id="width_m_help" class="hint help-btn">What is width?</span>
+    <span id="max_depth_m_help" class="hint help-btn">What is depth?</span>
+    <span id="traces_help" class="hint help-btn">What are traces?</span>
+    <span id="samples_help" class="hint help-btn">What are samples?</span>
+    <span id="epsilon_r_help" class="hint help-btn">What is εr?</span>
+    <span id="wavelength_m_help" class="hint help-btn">What is wavelength?</span>
   </div>
   <div class="control-group">
-    <button id="addObj">Add Object</button>
-    <button id="clearObj">Clear Objects</button>
-    <button id="runSim">Run Simulation</button>
+    <button id="addObj" class="action-btn">Add Object</button>
+    <button id="clearObj" class="danger-btn">Clear Objects</button>
+    <button id="runSim" class="action-btn">Run Simulation</button>
   </div>
 </section>
 
@@ -55,7 +55,7 @@
     </div>
   </div>
   <div class="pane">
-    <h3>Simulated B-Scan</h3>
+    <h3>Simulated B-Scan <span id="bscan_help" class="hint help-btn">What is a B-scan?</span></h3>
     <canvas id="bscan" width="500" height="300"></canvas>
   </div>
 </section>
