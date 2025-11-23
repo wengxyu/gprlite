@@ -8,6 +8,25 @@
   const objects = []; // {x: m, z: m, shape: 'point'|'square', size_m: number}
   let draggingIndex = -1;
   let selectedIndex = -1;
+  let lastBscanData = null;
+
+  const root = document.documentElement;
+  let themeColors = {};
+  function refreshThemeColors(){
+    const styles = getComputedStyle(root);
+    themeColors = {
+      canvasBg: (styles.getPropertyValue('--canvas-bg') || '#0a0a0a').trim() || '#0a0a0a',
+      grid: (styles.getPropertyValue('--canvas-grid') || '#1f2937').trim() || '#1f2937',
+      ground: (styles.getPropertyValue('--canvas-ground') || '#334155').trim() || '#334155',
+      label: (styles.getPropertyValue('--canvas-label') || '#e5e7eb').trim() || '#e5e7eb'
+    };
+  }
+  refreshThemeColors();
+  root.addEventListener('themechange', () => {
+    refreshThemeColors();
+    drawPlacement();
+    drawBscan(lastBscanData);
+  });
 
   function val(id){ return parseFloat(document.getElementById(id).value); }
 
@@ -29,9 +48,9 @@
   function drawPlacement(){
     // background and ground surface line
     pctx.clearRect(0,0,placement.width, placement.height);
-    pctx.fillStyle = '#0a0a0a';
+    pctx.fillStyle = themeColors.canvasBg;
     pctx.fillRect(0,0,placement.width, placement.height);
-    pctx.strokeStyle = '#334155';
+    pctx.strokeStyle = themeColors.ground;
     pctx.lineWidth = 2;
     pctx.beginPath();
     pctx.moveTo(0, 0.5);
@@ -39,7 +58,7 @@
     pctx.stroke();
 
     // grid
-    pctx.strokeStyle = '#1f2937';
+    pctx.strokeStyle = themeColors.grid;
     pctx.lineWidth = 1;
     const grid = 5;
     for(let i=1;i<grid;i++){
@@ -67,7 +86,7 @@
       } else {
         pctx.beginPath(); pctx.arc(x,y,8,0,Math.PI*2); pctx.fill();
       }
-      pctx.fillStyle = '#e5e7eb';
+      pctx.fillStyle = themeColors.label;
       pctx.font = '12px system-ui, sans-serif';
       const label = o.shape === 'square' ? `square ~${o.size_m.toFixed(2)}m` : 'point';
       pctx.fillText(`x=${o.x.toFixed(2)}m, z=${o.z.toFixed(2)}m (${label})`, x+10, y-10);
@@ -144,7 +163,7 @@
     bctx.clearRect(0,0,bscan.width,bscan.height);
     if(!data || !data.matrix){
       // empty background
-      bctx.fillStyle = '#0a0a0a';
+      bctx.fillStyle = themeColors.canvasBg;
       bctx.fillRect(0,0,bscan.width,bscan.height);
       return;
     }
@@ -172,7 +191,7 @@
     bctx.save();
     bctx.strokeStyle = '#f59e0b';
     bctx.lineWidth = 1;
-    bctx.fillStyle = '#e5e7eb';
+    bctx.fillStyle = themeColors.label;
     bctx.font = '12px system-ui, sans-serif';
     const width_m = val('width_m');
     const max_depth_m = val('max_depth_m');

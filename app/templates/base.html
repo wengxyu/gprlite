@@ -1,14 +1,30 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>GPR Lite</title>
     <link rel="stylesheet" href="/static/css/style.css">
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('gpr-theme');
+          var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var theme = stored || (prefersDark ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (err) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      })();
+    </script>
   </head>
   <body>
     <header class="site-header">
-      <h1>GPR Lite — Ground Penetrating Radar Simulator</h1>
+      <h1>GPR Lite - Ground Penetrating Radar Simulator</h1>
+      <button id="themeToggle" class="theme-toggle-btn" type="button" aria-pressed="true">
+        <span class="theme-toggle-icon" aria-hidden="true">*</span>
+        <span class="theme-toggle-text">Light mode</span>
+      </button>
     </header>
     <main class="container">
       {% block content %}{% endblock %}
@@ -16,7 +32,8 @@
     <footer class="site-footer">
       <p>Educational simulator. Not for field use.</p>
     </footer>
+    <script src="/static/js/theme.js" defer></script>
     {% block scripts %}{% endblock %}
   </body>
-  </html>
+</html>
 
